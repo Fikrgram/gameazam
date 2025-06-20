@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Peramal Azzam 🔮</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('background-kamu.png') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      text-align: center;
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+      color: #333;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    button {
+      background: #ff66a3;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      margin: 12px 8px;
+      border-radius: 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #ff3385;
+    }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+<div class="overlay">
+  <div class="card" id="start-screen">
+    <h1>🔮 Game: Peramal Azzam</h1>
+    <p><em>Temukan hewan yang mewakili jiwamu!</em></p>
+    <button onclick="startGame()">Mulai Ramalan</button>
+  </div>
+
+  <div class="card hidden" id="quiz-screen">
+    <h3 id="question">Pertanyaan akan muncul di sini</h3>
+    <div id="answers"></div>
+  </div>
+
+  <div class="card hidden" id="result-screen">
+    <h2>Hewan yang Mewakili Kamu Adalah:</h2>
+    <h1 id="animal"></h1>
+    <p id="desc"></p>
+    <button onclick="location.reload()">Main Lagi</button>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {
+    q: "1. Gimana kamu di keramaian?",
+    a: [
+      { text: "Aku aktif dan suka tampil", type: "singa" },
+      { text: "Suka menyendiri", type: "kucing" },
+      { text: "Ramah dan suka ngobrol", type: "anjing" },
+    ]
+  },
+  {
+    q: "2. Gimana cara kamu ngadepin masalah?",
+    a: [
+      { text: "Hadapi dengan tenang", type: "kucing" },
+      { text: "Langsung terobos aja!", type: "singa" },
+      { text: "Diskusi bareng temen", type: "anjing" },
+    ]
+  },
+  {
+    q: "3. Kamu lebih suka waktu...",
+    a: [
+      { text: "Sendiri, nonton atau tidur", type: "kucing" },
+      { text: "Bermain & ketawa bareng teman", type: "anjing" },
+      { text: "Punya tujuan besar & kerja keras", type: "singa" },
+    ]
+  },
+  {
+    q: "4. Kalau lagi jatuh cinta...",
+    a: [
+      { text: "Malu-malu tapi manja", type: "kucing" },
+      { text: "Cuek di luar, perhatian di dalam", type: "singa" },
+      { text: "Langsung gebet! Gaskan!", type: "anjing" },
+    ]
+  },
+  {
+    q: "5. Apa kekuatanmu?",
+    a: [
+      { text: "Ketenangan & intuisi", type: "kucing" },
+      { text: "Keberanian & kepemimpinan", type: "singa" },
+      { text: "Kesetiaan & semangat", type: "anjing" },
+    ]
+  }
+];
+
+let current = 0;
+let result = { kucing: 0, singa: 0, anjing: 0 };
+
+function startGame() {
+  document.getElementById("start-screen").classList.add("hidden");
+  document.getElementById("quiz-screen").classList.remove("hidden");
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const q = questions[current];
+  document.getElementById("question").innerText = q.q;
+  const ansDiv = document.getElementById("answers");
+  ansDiv.innerHTML = "";
+  q.a.forEach(answer => {
+    const btn = document.createElement("button");
+    btn.innerText = answer.text;
+    btn.onclick = () => {
+      result[answer.type]++;
+      current++;
+      if (current < questions.length) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    };
+    ansDiv.appendChild(btn);
+  });
+}
+
+function showResult() {
+  document.getElementById("quiz-screen").classList.add("hidden");
+  document.getElementById("result-screen").classList.remove("hidden");
+  let final = Object.entries(result).sort((a,b) => b[1] - a[1])[0][0];
+  let animalText = "";
+  let desc = "";
+
+  if (final === "kucing") {
+    animalText = "🐱 Kucing";
+    desc = "Kamu tenang, suka ruang pribadi, tapi sangat perhatian dan intuitif.";
+  } else if (final === "singa") {
+    animalText = "🦁 Singa";
+    desc = "Kamu punya jiwa pemimpin, kuat, dan tidak takut ambil keputusan.";
+  } else if (final === "anjing") {
+    animalText = "🐶 Anjing";
+    desc = "Kamu ramah, setia, dan selalu ada untuk orang-orang terdekat.";
+  }
+
+  document.getElementById("animal").innerText = animalText;
+  document.getElementById("desc").innerText = desc;
+}
+</script>
+</body>
+</html>
