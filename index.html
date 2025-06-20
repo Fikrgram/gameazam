@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Peramal Azzam 🔮</title>
+  <title>Peramal M.Azzam Al Rasyid 🔮</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -11,42 +11,62 @@
       padding: 0;
       color: #fff;
       text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
 
     .overlay {
       background: rgba(0, 36, 216, 0.6);
-      min-height: 100vh;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
       padding: 40px 20px;
+      border-radius: 20px;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 15px;
-      padding: 30px;
-      max-width: 600px;
-      margin: auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 40px;
       color: #333;
       box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
     }
 
-    h1, h2, h3 {
-      margin-top: 0;
+    h1 {
+      font-size: 2.2em;
+    }
+
+    h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 1.6em;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
     }
 
     button {
       background: #ff66a3;
       color: white;
       border: none;
-      padding: 12px 24px;
+      padding: 16px 32px;
       margin: 12px 8px;
-      border-radius: 20px;
-      font-size: 16px;
+      border-radius: 25px;
+      font-size: 18px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.2s;
     }
 
     button:hover {
       background: #ff3385;
+      transform: scale(1.05);
     }
 
     .hidden {
@@ -54,14 +74,33 @@
     }
 
     @media (max-width: 600px) {
+      .overlay {
+        padding: 20px 10px;
+      }
+
       .card {
-        padding: 20px;
-        font-size: 16px;
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 1.8em;
+      }
+
+      h2 {
+        font-size: 1.6em;
+      }
+
+      h3 {
+        font-size: 1.4em;
+      }
+
+      p {
+        font-size: 1.1em;
       }
 
       button {
-        padding: 10px 18px;
-        font-size: 15px;
+        padding: 14px 24px;
+        font-size: 17px;
       }
     }
   </style>
@@ -89,10 +128,10 @@
   </div>
 
   <!-- Sound efek klik -->
-  <audio id="click-sound" src="suaraklik.mp3.mp3"></audio>
+  <audio id="click-sound" src="suaraklik.mp3"></audio>
 
   <!-- Backsound ceria looping -->
-  <audio id="bg-music" src="sound.mp3.mp3" loop></audio>
+  <audio id="bg-music" src="sound.mp3" loop></audio>
 
   <script>
     const questions = [
@@ -151,7 +190,7 @@
 
     function startGame() {
       playSound();
-      bgMusic.volume = 0.5; // set volume 50%
+      bgMusic.volume = 0.5;
       bgMusic.play();
 
       document.getElementById("start-screen").classList.add("hidden");
